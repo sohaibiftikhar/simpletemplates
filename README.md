@@ -29,19 +29,45 @@ a static library `libsimple_templates.a` which you can link to your own project.
 Simple templates works with streams. A sample code for usage and its output
 is given below.
 ```c++
-std::stringstream istream("Hello {{user}}! Welcome to Simple Templates!");
-std::stringstream outstream;
-TemplateConfig myConfig("{{", "}}");
-TemplateEngine myEngine;
-Template myTemplate = engine.compile("WelcomeTemplate", istream, config);
-std::map<std::string, std::unique_ptr<Renderable>> myContext;
-context.insert({"user", std::make_unique<StringRenderable>("Suhaib")});
-myTemplate.bind(outstream, context);
-std::cout<<outstream.str()<<std::endl;
+#include <iostream>
+#include <string>
+#include <sstream>
+
+#include "TemplateEngine.hpp"
+#include "Template.hpp"
+#include "Renderable.hpp"
+#include "TemplateConfig.hpp"
+using namespace std;
+int main() {
+    std::stringstream istream("Hello {{user}}! Welcome to Simple Templates!");
+    std::stringstream outstream;
+    TemplateConfig myConfig("{{", "}}");
+    TemplateEngine myEngine;
+    Template myTemplate = myEngine.compile("WelcomeTemplate", istream, myConfig);
+    std::map<std::string, std::unique_ptr<Renderable>> myContext;
+    myContext.insert({"user", std::make_unique<StringRenderable>("Suhaib")});
+    myTemplate.bind(outstream, myContext);
+    std::cout<<outstream.str()<<std::endl;
+}
 ```
 
-This should produce the following output.
-```Hello Suhaib! Welcome to Simple Templates!```
+Lets we call this file `test.cpp`. You can compile this as follows:
+
+```shell script
+g++-9 --std=c++14 -I<path_to_simple_templates>/includes -c test.cpp  -o test.o
+```
+
+Then link it against the compiled library we produced above.
+
+```shell script
+g++-9 test.o -L <path_to_simple_templates>/build -lsimple_templates -o test.exe
+```
+
+And finally you can run it
+```shell script
+./test.exe
+Hello Suhaib! Welcome to Simple Templates!
+```
 
 ###### Template Configuration
 Template start and end expressions are defined through the `TemplateConfig`.

@@ -178,10 +178,10 @@ void TemplateEngineSpec::runSpecification() {
         std::stringstream outstream;
         TemplateConfig myConfig("{{", "}}");
         TemplateEngine myEngine;
-        Template myTemplate = engine.compile("WelcomeTemplate", istream, config);
+        Template myTemplate = myEngine.compile("WelcomeTemplate", istream, myConfig);
         std::map<std::string, std::unique_ptr<Renderable>> myContext;
-        context.insert({"user", std::make_unique<StringRenderable>("Suhaib")});
-        myTemplate.bind(outstream, context);
+        myContext.insert({"user", std::make_unique<StringRenderable>("Suhaib")});
+        myTemplate.bind(outstream, myContext);
         // std::cout<<outstream.str()<<std::endl;
         //////
         string actual = outstream.str();

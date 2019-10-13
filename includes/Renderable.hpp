@@ -7,12 +7,10 @@
 #include <iostream>
 #include <utility>
 #include <vector>
-#include <bits/unique_ptr.h>
+#include <memory>
 
 #ifndef SIMPLE_TEMPLATES_RENDERABLE_HPP
 #define SIMPLE_TEMPLATES_RENDERABLE_HPP
-
-#endif //SIMPLE_TEMPLATES_RENDERABLE_HPP
 
 class Renderable {
 public:
@@ -54,3 +52,5 @@ public:
     ListRenderable(std::vector<std::unique_ptr<Renderable>> b);
     void render(std::ostream&) override;
 };
+
+#endif //SIMPLE_TEMPLATES_RENDERABLE_HPP
