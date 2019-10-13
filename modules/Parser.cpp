@@ -18,11 +18,11 @@ bool Parser::search(const string& expr, ParserTokenType nextToken) {
     unsigned bufferOffset = 0;
     while (true) {
         size_t i = 0;
-        for (; i < read(bufferOffset, c) && config.exprStart.length() && c == config.exprStart[i]; i++);
-        if (i == config.exprStart.length()) {
+        while (read(bufferOffset, c) && c == expr[i] && ++i < expr.length());
+        if (i == expr.length()) {
             this->nextTokenType = nextToken;
             return true;
-        } else if (nextToken == StreamEnd) {
+        } else if (this->nextTokenType == StreamEnd) {
             return false;
         }
         // else we continue to look but only from the next char of the buffer and not from
@@ -68,7 +68,9 @@ bool Parser::read(unsigned &bufferOffset, char &c) {
 
 
 Token Parser::nextToken() {
+    // before beginning clear the buffer
     do {
+        buffer.clear();
         ParserTokenType currentToken = nextTokenType;
         switch (currentToken) {
             case StreamEnd: {
@@ -96,8 +98,8 @@ Token Parser::nextToken() {
 }
 
 void Parser::parseUntil(std::vector<std::unique_ptr<Binding>> &bindings, TokenType until) {
-    Token token = nextToken();
     do {
+        Token token = nextToken();
         switch(token.type) {
             case Static: {
                 bindings.push_back(std::make_unique<StaticBinding>(token.tokens[0]));
@@ -126,8 +128,17 @@ void Parser::parseUntil(std::vector<std::unique_ptr<Binding>> &bindings, TokenTy
                 break;
             }
         }
-    } while (token.type != until || token.type == End);
-    if (token.type != until) {
-        throw invalid_argument("Reached end of stream while looking for " + token.typeToString());
-    }
+        // Since do/while does not allow us to check loop variable declared inside the loop
+        // we have our own break check
+        if (token.type == until || token.type == End) {
+            if (token.type != until) {
+                throw invalid_argument("Reached end of stream while looking for " + Token::typeToString(until));
+            }
+            return;
+        }
+    } while (true);
+}
+
+void Parser::reset() {
+    nextTokenType = Constant;
 }

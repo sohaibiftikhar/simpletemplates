@@ -13,14 +13,14 @@
 
 class Template: public ComplexBinding {
 private:
-    void parse(std::istream &inputTemplate);
-
+    explicit Template(const std::string& templateName);
+    friend class TemplateEngine;
 public:
     /**
-     * Compiles the inputSource to a renderable Template
-     * @param inputTemplate An input stream of characters for the template
+     * Returns the name this template was created with.
+     * @return
      */
-    Template(std::istream &inputTemplate);
+    const std::string& name();
 
     /**
      * Renders the compiled template against the context and writes it to the output stream specified.

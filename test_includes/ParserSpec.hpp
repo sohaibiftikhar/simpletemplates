@@ -9,7 +9,9 @@
 #include "Specification.hpp"
 
 class ParserSpec: public Specification {
-    bool testParseUntil();
+public:
+    ParserSpec(): Specification("ParserSpec") {}
+    std::pair<unsigned , unsigned> runSpecification() override;
 };
 
 

@@ -4,13 +4,14 @@
 
 #include "../test_includes/TemplateConfigSpec.hpp"
 #include "../includes/TemplateConfig.hpp"
+#include "../test_includes/tests_common.hpp"
 #include <stdexcept>
 
 using namespace std;
 
 std::pair<unsigned, unsigned> TemplateConfigSpec::runSpecification() {
     unsigned successful = 0; unsigned failed = 0;
-    printToConsole("TemplateConfig should");
+    printToConsole("A TemplateConfig should");
 
     // TEST 1
     printToConsole("work correctly for correct arguments", 1);

@@ -19,6 +19,7 @@ public:
     const string exprEnd;
 
     TemplateConfig(string  expressionStart, string  expressionEnd);
+    TemplateConfig();
 };
 
 #endif //SIMPLE_TEMPLATES_TEMPLATECONFIG_HPP

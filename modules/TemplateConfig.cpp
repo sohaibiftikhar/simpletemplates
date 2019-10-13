@@ -16,4 +16,6 @@ exprStart(std::move(expressionStart)), exprEnd(std::move(expressionEnd)) {
         throw invalid_argument("expressionEnd must have a length greater than 0 and not have any "
                                "characters other {[(<|$>)]}");
     }
-};
+}
+
+TemplateConfig::TemplateConfig(): TemplateConfig("{{", "}}") {};

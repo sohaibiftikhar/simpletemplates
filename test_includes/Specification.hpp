@@ -10,21 +10,6 @@
 
 class Specification {
 protected:
-    // Bunch of pretty print functions
-    void printToConsole(const std::vector<std::string>& strings, const std::set<unsigned>& red,
-                        const std::set<unsigned>& green, unsigned offset);
-    void printToConsole(const std::vector<std::string> &strings, unsigned offset);
-    void printToConsole(const std::vector<std::string> &strings);
-    void printToConsole(const std::string& str);
-    void printToConsole(const std::string& str, int offset);
-    void printRedToConsole(const std::vector<std::string> &strings, const std::set<unsigned>& red,
-                           int offset);
-    void printRedToConsole(const std::string& str, int offset);
-    void printGreenToConsole(const std::vector<std::string> &strings, const std::set<unsigned>& green,
-                             int offset);
-    void printGreenToConsole(const std::string& str, int offset);
-    void printSuccess();
-    void printFailure();
 public:
     const std::string specName;
     Specification(std::string specName);

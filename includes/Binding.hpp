@@ -18,9 +18,8 @@ public:
 };
 
 class StaticBinding: public Binding {
-private:
-    const std::string value;
 public:
+    const std::string value;
     explicit StaticBinding(std::string staticStr);
     void bind(std::ostream& os, std::map<std::string, std::unique_ptr<Renderable>>& context) override;
 };
@@ -30,8 +29,9 @@ public:
  */
 class DynamicBinding: public Binding {
 protected:
-    const std::string varName;
     DynamicBinding(std::string varName);
+public:
+    const std::string varName;
 };
 
 /**
@@ -59,8 +59,8 @@ public:
 };
 
 class LoopBinding: public ComplexBinding {
-    const std::string loopVarName;
 public:
+    const std::string loopVarName;
     explicit LoopBinding(std::string varName, std::string loopVarName);
     void bind(std::ostream& os, std::map<std::string, std::unique_ptr<Renderable>>& context) override;
     void build(Parser& parser) override;

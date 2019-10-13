@@ -1,5 +1,5 @@
 # Simple Templates
-Simple templates a templating library written entirely in C++.
+Simple templates is a templating library written entirely in C++.
 
 #### Installation
 Simple templates uses `cmake` as a build system. For cmake projects
@@ -18,7 +18,10 @@ cmake --configure ..
 ```
 
 This should create an executable `engine_test`. Run it to check if the library compilation
-was a success. Other than the executable cmake should also have created
+was a success. The results from the test would look something like this.
+![Alt text](docs/tests.png)
+
+Other than the executable cmake should also have created
 a static library `libsimple_templates.a` which you can link to your own project.
 
 #### User Documentation
@@ -65,7 +68,7 @@ this documentation.
 * Simple: Any variable within the `{{` and  `}}`. Variable names must
 start with an alphabet and can  only contain alphabets, numbers and '_'.
 * Conditional: Following is an example of a conditional expression.
-```c++
+```mustache
 {{#if conditionalVar}}
 Do something here
 {{/if}}
@@ -73,10 +76,10 @@ Do something here
 The `conditionalVar` must be a valid variable name that maps to a 
 `BoolRenderable` in the context when binding.
 * Loops: Following is an example of a loop.
-```c++
-{{#if listVar loopVar}}
+```mustache
+{{#loop listVar loopVar}}
 Do something here with {{loopVar}}
-{{/if}}
+{{/loop}}
 ```
 The `listVar` must be a valid variable name that maps to a
 `ListRenderable` in the context when binding. Since the context is global,

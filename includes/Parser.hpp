@@ -33,6 +33,11 @@ private:
     Token nextToken();
 public:
     Parser(istream& is, TemplateConfig config);
+    /**
+     * Only resets the expected token type.
+     * Since this class does not own the the input stream that needs to be reset externally
+     */
+    void reset();
 
     void parseUntil(std::vector<std::unique_ptr<Binding>>& bindings, TokenType until);
 };

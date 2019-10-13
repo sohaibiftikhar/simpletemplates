@@ -43,7 +43,7 @@ void LoopBinding::bind(std::ostream &os, std::map<std::string, std::unique_ptr<R
         if (isInstanceOf<ListRenderable>(*r)) {
             auto *list = asInstanceOf<ListRenderable>(*r);
             for (auto &renderable : list->value) {
-                context.emplace(loopVarName, std::move(renderable));
+                context[loopVarName] = std::move(renderable);
                 for (auto &binding : bindings) {
                     (*binding).bind(os, context);
                 }

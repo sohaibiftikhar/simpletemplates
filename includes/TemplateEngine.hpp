@@ -12,8 +12,13 @@
 
 class TemplateEngine {
 public:
-    Template compile(std::istream& istream, TemplateConfig& config);
+    /**
+     * Compiles the characters from the given input string into a Template that can be rendered
+     * @param istream
+     * @param config
+     * @return
+     */
+    Template compile(const std::string& templateName, std::istream& istream, TemplateConfig& config);
 };
-
 
 #endif //SIMPLE_TEMPLATES_TEMPLATEENGINE_HPP
