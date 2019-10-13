@@ -17,29 +17,23 @@ void TestSuite::run() {
     vector<string> failedSpecs;
     printToConsole("", "");
     for (auto &specification: specifications) {
-        printToConsole("Running tests for specification " + specification->specName, "+ ");
-        auto result = specification->runSpecification();
+        auto result = specification->run();
         successful += result.first;
         failed += result.second;
         if (result.second > 0) failedSpecs.push_back(specification->specName);
-        printToConsole(
-                {
-                        specification->specName, " ran ", to_string(result.first + result.second),
-                        " tests of which ", to_string(result.first), " were successful ", " and ",
-                        to_string(result.second),
-                        " were unsuccessful\n"
-                },
-                {7, 8},
-                {4, 5},
-                0, "  ");
     }
     printToConsole(
             {"Total tests: ", to_string(successful + failed), " Passed: ", to_string(successful),
              " Failed: ", to_string(failed)
-             }, {4,5}, {2,3}, 0, "");
+            },
+            {4, 5},
+            {2, 3},
+            0,
+            ""
+    );
     if (!failedSpecs.empty()) {
         printToConsole("Failed specifications are: ", "");
-        for(string& specName: failedSpecs) printToConsole(specName, 1);
+        for (string &specName: failedSpecs) printToConsole(specName, 1);
     }
     printToConsole("", "");
 }

@@ -15,6 +15,8 @@ class Template: public ComplexBinding {
 private:
     explicit Template(const std::string& templateName);
     friend class TemplateEngine;
+protected:
+    void build(Parser& parser) override;
 public:
     /**
      * Returns the name this template was created with.
@@ -30,7 +32,6 @@ public:
      */
     void bind(std::ostream& os, std::map<std::string, std::unique_ptr<Renderable>>& context) override;
 
-    void build(Parser& parser) override;
 };
 
 #endif //SIMPLE_TEMPLATES_TEMPLATE_HPP

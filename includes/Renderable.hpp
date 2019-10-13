@@ -36,7 +36,8 @@ public:
 class FloatRenderable: public Renderable {
 public:
     const float value;
-    FloatRenderable(float f);
+    const int precision;
+    FloatRenderable(float f, int precision);
     void render(std::ostream&) override;
 };
 

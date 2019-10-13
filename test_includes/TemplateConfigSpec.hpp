@@ -10,7 +10,7 @@
 class TemplateConfigSpec: public Specification {
 public:
     TemplateConfigSpec(): Specification("TemplateConfigSpec") {}
-    std::pair<unsigned , unsigned> runSpecification() override;
+    void runSpecification() override;
 };
 
 

@@ -24,6 +24,7 @@ private:
     istream& is;
     const TemplateConfig config;
     vector<char> buffer;
+    set<string> contextVars;
 
     bool searchExpressionStart();
     bool searchExpressionEnd();

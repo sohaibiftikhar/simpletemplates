@@ -11,7 +11,7 @@
 class ParserSpec: public Specification {
 public:
     ParserSpec(): Specification("ParserSpec") {}
-    std::pair<unsigned , unsigned> runSpecification() override;
+    void runSpecification() override;
 };
 
 

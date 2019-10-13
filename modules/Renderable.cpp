@@ -4,12 +4,13 @@
 
 #include "../includes/Renderable.hpp"
 #include <iterator>
+#include <iomanip>
 
 StringRenderable::StringRenderable(std::string str): value(std::move(str)) {}
 
 IntRenderable::IntRenderable(int i): value(i) {}
 
-FloatRenderable::FloatRenderable(float i): value(i) {}
+FloatRenderable::FloatRenderable(float i, int precision): value(i), precision(precision) {}
 
 BoolRenderable::BoolRenderable(bool i): value(i) {}
 
@@ -24,7 +25,7 @@ void IntRenderable::render(std::ostream &os) {
 }
 
 void FloatRenderable::render(std::ostream &os) {
-    os<<value;
+    os<<std::fixed<<std::setprecision(precision)<<value;
 }
 
 void BoolRenderable::render(std::ostream &os) {

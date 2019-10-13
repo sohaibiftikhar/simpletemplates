@@ -31,17 +31,17 @@ is given below.
 ```c++
 std::stringstream istream("Hello {{user}}! Welcome to Simple Templates!");
 std::stringstream outstream;
-TemplateConfig config("{{", "}}");
-TemplateEngine engine;
-Template myWelcomeTemplate = engine.compile();
-std::map<std::string, std::unique_ptr<Renderable>> context;
+TemplateConfig myConfig("{{", "}}");
+TemplateEngine myEngine;
+Template myTemplate = engine.compile("WelcomeTemplate", istream, config);
+std::map<std::string, std::unique_ptr<Renderable>> myContext;
 context.insert({"user", std::make_unique<StringRenderable>("Suhaib")});
-myWelcomeTemplate.bind(outstream, context);
+myTemplate.bind(outstream, context);
 std::cout<<outstream.str()<<std::endl;
 ```
 
 This should produce the following output.
-```Hello Suhaib! Welcome to Simple Templates```
+```Hello Suhaib! Welcome to Simple Templates!```
 
 ###### Template Configuration
 Template start and end expressions are defined through the `TemplateConfig`.

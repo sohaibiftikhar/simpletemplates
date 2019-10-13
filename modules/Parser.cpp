@@ -106,17 +106,24 @@ void Parser::parseUntil(std::vector<std::unique_ptr<Binding>> &bindings, TokenTy
                 break;
             }
             case SimpleVar: {
+                contextVars.emplace(token.tokens[0]);
                 bindings.push_back(make_unique<SimpleBinding>(token.tokens[0]));
                 break;
             }
             case LoopStart: {
                 std::unique_ptr<LoopBinding> loopBinding(new LoopBinding(token.tokens[1], token.tokens[2]));
+                // check for uniqueness of loop variable
+                contextVars.emplace(loopBinding->varName);
+                if (!(contextVars.emplace(loopBinding->loopVarName).second)) {
+                    throw invalid_argument("duplicate loop variable " + loopBinding->loopVarName);
+                }
                 loopBinding->build(*this);
                 bindings.push_back(std::move(loopBinding));
                 break;
             }
             case ConditionStart: {
                 std::unique_ptr<ConditionalBinding> conditionalBinding(new ConditionalBinding(token.tokens[1]));
+                contextVars.emplace(conditionalBinding->varName);
                 conditionalBinding->build(*this);
                 bindings.push_back(std::move(conditionalBinding));
                 break;
@@ -128,7 +135,7 @@ void Parser::parseUntil(std::vector<std::unique_ptr<Binding>> &bindings, TokenTy
                 break;
             }
         }
-        // Since do/while does not allow us to check loop variable declared inside the loop
+        // Since do/while does not allow us to check loop variables declared inside the loop
         // we have our own break check
         if (token.type == until || token.type == End) {
             if (token.type != until) {
@@ -141,4 +148,5 @@ void Parser::parseUntil(std::vector<std::unique_ptr<Binding>> &bindings, TokenTy
 
 void Parser::reset() {
     nextTokenType = Constant;
+    contextVars.clear();
 }

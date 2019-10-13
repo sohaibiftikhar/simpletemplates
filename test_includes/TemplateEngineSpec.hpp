@@ -11,7 +11,7 @@
 class TemplateEngineSpec: public Specification {
 public:
     TemplateEngineSpec(): Specification("TemplateEngineSpec") {}
-    std::pair<unsigned , unsigned> runSpecification() override;
+    void runSpecification() override;
 };
 
 
